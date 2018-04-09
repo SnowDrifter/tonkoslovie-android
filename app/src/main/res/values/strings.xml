@@ -1,6 +1,12 @@
 <resources>
     <string name="action_settings">Настройки</string>
 
+    <string name="menu_lessons">Уроки</string>
+    <string name="menu_exercises">Упражнения</string>
+    <string name="menu_login">Войти</string>
+    <string name="menu_registration">Регистрация</string>
+    <string name="menu_settings">Настройки</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
