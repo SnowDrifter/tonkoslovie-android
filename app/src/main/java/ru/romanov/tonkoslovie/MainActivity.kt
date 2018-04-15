@@ -1,6 +1,7 @@
 package ru.romanov.tonkoslovie
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -10,15 +11,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-
+import kotlinx.android.synthetic.main.main_activity.*
+import ru.romanov.tonkoslovie.ui.screens.login.LoginActivity
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
 
         nav_view.setNavigationItemSelectedListener(this)
@@ -72,6 +73,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_settings -> {
                 Toast.makeText(applicationContext, "Настройки", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_login -> {
+                startActivity(Intent(this, LoginActivity::class.java))
             }
         }
 
