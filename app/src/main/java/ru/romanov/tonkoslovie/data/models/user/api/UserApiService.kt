@@ -1,13 +1,15 @@
 package ru.romanov.tonkoslovie.data.models.user.api
 
 import io.reactivex.Observable
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+import ru.romanov.tonkoslovie.R
 import ru.romanov.tonkoslovie.data.models.user.LoginResponse
 import ru.romanov.tonkoslovie.data.models.user.UserRequest
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.Retrofit
+import ru.romanov.tonkoslovie.utils.ResourceUtils
 
 
 interface UserApiService {
@@ -20,7 +22,7 @@ interface UserApiService {
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("http://10.0.2.2:8080")
+                    .baseUrl(ResourceUtils.getString(R.string.api_url))
                     .build()
 
             return retrofit.create(UserApiService::class.java)
