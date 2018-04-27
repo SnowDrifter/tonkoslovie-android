@@ -17,16 +17,5 @@ interface UserApiService {
     @POST("/api/user/login")
     fun login(@Body request: UserRequest): Observable<LoginResponse>
 
-    companion object {
-        fun create(): UserApiService {
-            val retrofit = Retrofit.Builder()
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl(ResourceUtils.getString(R.string.api_url))
-                    .build()
-
-            return retrofit.create(UserApiService::class.java)
-        }
-    }
 }
 

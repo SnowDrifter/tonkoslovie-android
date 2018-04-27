@@ -8,8 +8,8 @@ import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.romanov.tonkoslovie.R
+import ru.romanov.tonkoslovie.data.models.user.ApiCreator
 import ru.romanov.tonkoslovie.data.models.user.UserRequest
-import ru.romanov.tonkoslovie.data.models.user.api.UserApiService
 
 
 class LoginActivity : AppCompatActivity() {
@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
         val request = UserRequest(email, password)
 
-        val api = UserApiService.create()
+        val api = ApiCreator.getUserApi()
         val response = api.login(request)
 
         response.subscribeOn(Schedulers.io())
