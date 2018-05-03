@@ -1,10 +1,9 @@
-package ru.romanov.tonkoslovie.data.models.user
+package ru.romanov.tonkoslovie.data.api
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.romanov.tonkoslovie.R
-import ru.romanov.tonkoslovie.data.models.user.api.UserApiService
 import ru.romanov.tonkoslovie.utils.ResourceUtils
 
 object ApiCreator {
