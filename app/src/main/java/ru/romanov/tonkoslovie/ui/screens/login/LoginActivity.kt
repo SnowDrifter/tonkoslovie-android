@@ -8,15 +8,24 @@ import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.romanov.tonkoslovie.R
-import ru.romanov.tonkoslovie.data.models.user.ApiCreator
+import ru.romanov.tonkoslovie.TonkoslovieApplication
+import ru.romanov.tonkoslovie.data.api.ApiCreator
 import ru.romanov.tonkoslovie.data.models.user.UserRequest
+import ru.romanov.tonkoslovie.data.repositories.UserRepository
+import javax.inject.Inject
 
 
 class LoginActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var userRepository: UserRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
+
+        val applicationComponent = TonkoslovieApplication.instance.applicationComponent
+        applicationComponent.inject(this)
     }
 
     fun sendLogin(view: View) {
@@ -31,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         response.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> Toast.makeText(applicationContext, "Success!\nToken: ${result.token}", Toast.LENGTH_SHORT).show() },
+                        { result -> userRepository.saveToken(result.token) },
                         { error -> Toast.makeText(applicationContext, "Error!\nMessage: ${error.message}", Toast.LENGTH_SHORT).show() }
                 )
     }
