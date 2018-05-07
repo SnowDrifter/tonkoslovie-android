@@ -1,5 +1,6 @@
 package ru.romanov.tonkoslovie.ui.screens.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import ru.romanov.tonkoslovie.MainActivity
 import ru.romanov.tonkoslovie.R
 import ru.romanov.tonkoslovie.TonkoslovieApplication
 import ru.romanov.tonkoslovie.data.api.ApiCreator
@@ -40,7 +42,10 @@ class LoginActivity : AppCompatActivity() {
         response.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> userRepository.saveToken(result.token) },
+                        { result ->
+                            userRepository.saveToken(result.token)
+                            startActivity(Intent(this, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                        },
                         { error -> Toast.makeText(applicationContext, "Error!\nMessage: ${error.message}", Toast.LENGTH_SHORT).show() }
                 )
     }

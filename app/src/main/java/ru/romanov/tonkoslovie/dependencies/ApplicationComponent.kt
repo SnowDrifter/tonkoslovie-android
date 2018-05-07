@@ -1,6 +1,7 @@
 package ru.romanov.tonkoslovie.dependencies
 
 import dagger.Component
+import ru.romanov.tonkoslovie.MainActivity
 import ru.romanov.tonkoslovie.data.repositories.UserRepository
 import ru.romanov.tonkoslovie.dependencies.modules.ApiModule
 import ru.romanov.tonkoslovie.ui.screens.login.LoginActivity
@@ -11,6 +12,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(loginActivity: LoginActivity)
+    fun inject(mainActivity: MainActivity)
 
     fun getUserRepository(): UserRepository
 

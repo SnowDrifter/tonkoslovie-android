@@ -10,7 +10,7 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun getToken(): String {
-        return Paper.book(Constants.PaperBook.USER).read(Constants.PaperKey.TOKEN)
+        return Paper.book(Constants.PaperBook.USER).read(Constants.PaperKey.TOKEN) ?: ""
     }
 
     override fun deleteToken() {

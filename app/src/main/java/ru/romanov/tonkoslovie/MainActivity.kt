@@ -13,12 +13,21 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.main_activity.*
+import ru.romanov.tonkoslovie.data.repositories.UserRepository
 import ru.romanov.tonkoslovie.ui.screens.login.LoginActivity
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    @Inject
+    lateinit var userRepository: UserRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val applicationComponent = TonkoslovieApplication.instance.applicationComponent
+        applicationComponent.inject(this)
+
         setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
 
@@ -27,6 +36,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+
+        updateUserNavigationElements(nav_view.menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (menu != null) {
+            updateUserNavigationElements(menu)
+        }
+
+        return super.onPrepareOptionsMenu(menu)
     }
 
     fun sendMessage(view: View) {
@@ -77,10 +96,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_login -> {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
+            R.id.nav_logout -> {
+                userRepository.deleteToken()
+                updateUserNavigationElements(nav_view.menu)
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun updateUserNavigationElements(menu: Menu) {
+        val authorized = userRepository.getToken().isNotEmpty()
+
+        menu.findItem(R.id.nav_login)?.isVisible = !authorized
+        menu.findItem(R.id.nav_registration)?.isVisible = !authorized
+        menu.findItem(R.id.nav_logout)?.isVisible = authorized
     }
 
 }
