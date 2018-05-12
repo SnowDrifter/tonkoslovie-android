@@ -15,4 +15,9 @@
     <string name="login_password_hint">Пароль</string>
     <string name="login_submit_button">Войти</string>
     <string name="menu_logout">Выйти</string>
+
+    <string name="logout_dialog_title">Подтверждение выхода</string>
+    <string name="logout_dialog_body">Вы действительно хотите выйти из аккаунта?</string>
+    <string name="logout_dialog_submit">Ок</string>
+    <string name="logout_dialog_cancel">Отмена</string>
 </resources>

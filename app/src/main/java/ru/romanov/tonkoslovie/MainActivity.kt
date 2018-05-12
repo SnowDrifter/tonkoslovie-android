@@ -13,8 +13,12 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.main_activity.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import ru.romanov.tonkoslovie.data.eventbus.LogoutEvent
 import ru.romanov.tonkoslovie.data.repositories.UserRepository
 import ru.romanov.tonkoslovie.ui.screens.login.LoginActivity
+import ru.romanov.tonkoslovie.ui.screens.login.dialogs.LogoutDialogFragment
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +42,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         updateUserNavigationElements(nav_view.menu)
+
+        EventBus.getDefault().register(this)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
@@ -97,13 +103,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(this, LoginActivity::class.java))
             }
             R.id.nav_logout -> {
-                userRepository.deleteToken()
-                updateUserNavigationElements(nav_view.menu)
+                val dialog = LogoutDialogFragment()
+                dialog.show(supportFragmentManager, "LogoutDialogFragment")
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    @Subscribe
+    fun onLogoutEvent(logoutEvent: LogoutEvent) {
+        userRepository.deleteToken()
+        updateUserNavigationElements(nav_view.menu)
     }
 
     private fun updateUserNavigationElements(menu: Menu) {
