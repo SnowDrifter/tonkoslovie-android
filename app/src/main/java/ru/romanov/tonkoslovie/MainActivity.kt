@@ -19,6 +19,7 @@ import ru.romanov.tonkoslovie.data.eventbus.LogoutEvent
 import ru.romanov.tonkoslovie.data.repositories.UserRepository
 import ru.romanov.tonkoslovie.ui.screens.login.LoginActivity
 import ru.romanov.tonkoslovie.ui.screens.login.dialogs.LogoutDialogFragment
+import ru.romanov.tonkoslovie.ui.screens.profile.ProfileActivity
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -102,6 +103,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_login -> {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
+            R.id.nav_profile -> {
+                startActivity(Intent(this, ProfileActivity::class.java))
+            }
             R.id.nav_logout -> {
                 val dialog = LogoutDialogFragment()
                 dialog.show(supportFragmentManager, "LogoutDialogFragment")
@@ -124,6 +128,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menu.findItem(R.id.nav_login)?.isVisible = !authorized
         menu.findItem(R.id.nav_registration)?.isVisible = !authorized
         menu.findItem(R.id.nav_logout)?.isVisible = authorized
+        menu.findItem(R.id.nav_profile)?.isVisible = authorized
     }
 
 }
