@@ -12,7 +12,7 @@ import ru.romanov.tonkoslovie.MainActivity
 import ru.romanov.tonkoslovie.R
 import ru.romanov.tonkoslovie.TonkoslovieApplication
 import ru.romanov.tonkoslovie.data.api.ApiCreator
-import ru.romanov.tonkoslovie.data.models.user.UserRequest
+import ru.romanov.tonkoslovie.data.models.user.LoginRequest
 import ru.romanov.tonkoslovie.data.repositories.UserRepository
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.login_email).text.toString()
         val password = findViewById<EditText>(R.id.login_password).text.toString()
 
-        val request = UserRequest(email, password)
+        val request = LoginRequest(email, password)
 
         val api = ApiCreator.getUserApi()
         val response = api.login(request)
