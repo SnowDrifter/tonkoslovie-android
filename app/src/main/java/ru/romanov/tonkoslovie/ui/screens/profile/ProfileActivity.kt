@@ -1,6 +1,7 @@
 package ru.romanov.tonkoslovie.ui.screens.profile
 
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
@@ -24,7 +25,11 @@ class ProfileActivity  : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
-                            Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_SHORT).show()
+                            val firstNameInput = findViewById<TextInputEditText>(R.id.profile_input_firstName)
+                            firstNameInput.setText(result.firstName)
+
+                            val lastNameInput = findViewById<TextInputEditText>(R.id.profile_input_lastName)
+                            lastNameInput.setText(result.lastName)
                         },
                         { error ->
                             Toast.makeText(applicationContext, "Не удалось загрузить профиль", Toast.LENGTH_LONG).show()
