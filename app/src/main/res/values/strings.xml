@@ -13,6 +13,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="profile_temp_button">Загрузить профиль</string>
+    <string name="profile_username">Никнейм</string>
     <string name="profile_firstName">Имя</string>
     <string name="profile_lastName">Фамилия</string>
 
