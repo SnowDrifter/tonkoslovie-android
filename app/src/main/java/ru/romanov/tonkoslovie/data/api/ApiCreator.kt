@@ -14,6 +14,10 @@ object ApiCreator {
         return getRetrofit().create<UserApiService>(UserApiService::class.java)
     }
 
+    fun getContentApi(): ContentApiService {
+        return getRetrofit().create<ContentApiService>(ContentApiService::class.java)
+    }
+
     private fun getRetrofit(): Retrofit {
         val builder = OkHttpClient.Builder()
 
